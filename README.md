@@ -30,6 +30,33 @@ Include it in your Rust code:
 use peak_can_sys::*;
 ```
 
+## Generating the bindings
+```sh
+bindgen src/binding/PCANBasic.h \
+-o src/bindings.rs \
+--no-layout-tests \
+--dynamic-loading Pcan \
+--allowlist-function "^CAN_.*" \
+--allowlist-type "^TPCAN.*" \
+--allowlist-var "^PCAN_.*" \
+--allowlist-var "^LOG_.*" \
+--allowlist-var "^TRACE_.*" \
+--allowlist-var "^FEATURE_.*" \
+--allowlist-var "^SERVICE_.*" \
+--allowlist-var "^MAX_LENGTH_.*" \
+--allowlist-var "^LOOKUP_.*"
+```
+
+The following additional flags must be provided if generating on Linux
+```sh
+-- --target=x86_64-pc-windows-gnu -I/usr/x86_64-w64-mingw32/include
+```
+
+Finally, run the following command to rename identifiers to be license compliant.
+```sh
+sed -i 's/PCAN/PEAK/g' src/bindings.rs
+```
+
 ## License & Legal Notice
 This project is **not affiliated** with PEAK-System. The PCAN-Basic API is owned and maintained by PEAK-System.
 
@@ -38,4 +65,3 @@ This project is **not affiliated** with PEAK-System. The PCAN-Basic API is owned
 - By using this crate, you agree to PEAK-System's [End User License Agreement (EULA)](https://www.peak-system.com/EULA.495.0.html).
 
 For support related to this Rust binding, please contact the maintainer of this repository, **not** PEAK-System.
-

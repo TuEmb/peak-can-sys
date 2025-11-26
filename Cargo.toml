@@ -3,7 +3,10 @@ name = "peak-can-sys"
 description = "FFI bindings for the API by PEAK-System Technik GmbH"
 authors = ["Tu Nguyen <nvtu96@gmail.com>"]
 readme = "README.md"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2024"
 repository = "https://github.com/TuEmb/peak-can-sys"
-license       = "MIT OR Apache-2.0"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+libloading = "0.8"
